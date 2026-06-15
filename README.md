@@ -103,8 +103,9 @@ This repository is already structured correctly for deployment in one repo with 
 - `DATABASE`
 - `SESSION_SECRET`
 - `FRONTEND_URL`
-- `VITE_API_URL` for the frontend Vercel project, set to your Render backend URL
 - Any additional secrets used by the app
+
+The frontend uses Vercel rewrites to forward `/api` requests to the Render backend, so no separate frontend API base URL is required in production.
 
 ## Git
 
