@@ -88,6 +88,33 @@ router.get("/me", (req, res) => {
 });
 
 router.post("/login", (req, res, next) => {
+  const identifier = String(req.body.email || '').trim();
+  if (identifier && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(identifier)) {
+    // Allow staff to log in with username even though passport-local-mongoose uses email
+    req.body.email = identifier;
+  }
+
+  if (identifier && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(identifier)) {
+    // Try to resolve a username to the corresponding email before Passport authentication
+    User.findOne({ username: identifier })
+      .lean()
+      .then((matchedUser) => {
+        if (matchedUser?.email) {
+          req.body.email = matchedUser.email;
+        }
+        authenticateLogin(req, res, next);
+      })
+      .catch((lookupErr) => {
+        console.error("Login username lookup error:", lookupErr);
+        return res.status(500).json({ error: "Server error during authentication" });
+      });
+    return;
+  }
+
+  authenticateLogin(req, res, next);
+});
+
+const authenticateLogin = (req, res, next) => {
   passport.authenticate("local", async (err, user, info) => {
     if (err) {
       console.error("Passport authentication error:", err);
@@ -134,7 +161,7 @@ router.post("/login", (req, res, next) => {
       });
     });
   })(req, res, next);
-});
+};
 
 router.get("/logout", (req, res) => {
   req.session.destroy((err) => {

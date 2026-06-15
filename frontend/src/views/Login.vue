@@ -6,8 +6,8 @@
       <div v-if="error" class="alert alert-danger">{{ error }}</div>
       <form @submit.prevent="handleLogin" novalidate>
         <div class="mb-3">
-          <label class="form-label" for="email">Email</label>
-          <input v-model="form.email" @input="validateField('email')" :class="{'is-invalid': fieldErrors.email}" type="email" class="form-control" id="email" placeholder="Enter Your Email" />
+          <label class="form-label" for="email">Email or Username</label>
+          <input v-model="form.email" @input="validateField('email')" :class="{'is-invalid': fieldErrors.email}" type="text" class="form-control" id="email" placeholder="Enter Your Email or Username" />
           <p v-if="fieldErrors.email" class="field-error">{{ fieldErrors.email }}</p>
         </div>
         <div class="mb-3">
@@ -55,9 +55,10 @@ const form = ref({ email: '', password: '' })
 const fieldErrors = ref({ email: '', password: '' })
 
 const validateEmail = (email) => {
-  if (!email) return 'Email is required.'
+  if (!email) return 'Email or username is required.'
   const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
-  if (!emailPattern.test(email)) return 'Enter a valid email address.'
+  const usernamePattern = /^[A-Za-z0-9._-]{3,}$/
+  if (!emailPattern.test(email) && !usernamePattern.test(email)) return 'Enter a valid email address or username.'
   return ''
 }
 
@@ -85,7 +86,7 @@ const handleLogin = async () => {
   error.value = ''
   if (!form.value.email || !form.value.password) {
     validateAll()
-    error.value = 'Please enter both email and password.'
+    error.value = 'Please enter both email or username and password.'
     return
   }
   if (!validateAll()) {
