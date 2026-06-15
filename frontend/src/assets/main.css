@@ -1,0 +1,281 @@
+/* Mayondo Frontend Custom Styles */
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f8f9fa;
+  min-height: 100vh;
+}
+
+.sidebar {
+  min-width: 260px;
+  max-width: 260px;
+  min-height: 100vh;
+  background: #2c3e50;
+  transition: all 0.3s;
+  z-index: 1000;
+}
+
+.sidebar-header {
+  position: relative;
+}
+
+.app-shell .main-content {
+  min-width: 0;
+}
+
+/* Make the app shell full viewport height and keep sidebar fixed while only
+   the main content area scrolls. */
+.app-shell {
+  height: 100vh;
+  overflow: hidden;
+}
+
+.sidebar {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow: auto;
+}
+
+.main-content {
+  height: 100vh;
+  overflow: auto;
+  padding: 1.25rem; /* keep existing spacing when content scrolls */
+}
+
+.sidebar-toggle {
+  position: absolute;
+  right: 12px;
+  top: 12px;
+}
+
+.sidebar-logo {
+  width: 70px;
+  filter: brightness(0) invert(1);
+}
+
+.sidebar .nav-link {
+  color: rgba(255, 255, 255, 0.8) !important;
+  padding: 12px 16px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border-radius: 5px;
+  margin: 4px 0;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.sidebar .nav-link:hover, 
+.sidebar .nav-link.router-link-active {
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff !important;
+}
+
+.sidebar-icon {
+  display: inline-flex;
+  flex: 0 0 22px;
+  width: 22px;
+  height: 22px;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+}
+
+.sidebar-icon svg,
+.icon-action-btn svg {
+  width: 20px;
+  height: 20px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.sidebar-collapsed .sidebar {
+  min-width: 82px;
+  max-width: 82px;
+}
+
+.sidebar-collapsed .nav-text,
+.sidebar-collapsed .sidebar-title,
+.sidebar-collapsed .sidebar-logo {
+  display: none;
+}
+
+.sidebar-collapsed .sidebar-header {
+  min-height: 56px;
+}
+
+.sidebar-collapsed .sidebar .nav-link {
+  justify-content: center;
+  padding: 12px;
+}
+
+.sidebar-collapsed .sidebar-toggle {
+  position: static;
+  margin: 0 auto;
+}
+
+.sidebar-icon.icon-dashboard {
+  color: #60a5fa;
+}
+
+.sidebar-icon.icon-users {
+  color: #c084fc;
+}
+
+.sidebar-icon.icon-suppliers {
+  color: #fbbf24;
+}
+
+.sidebar-icon.icon-furniture {
+  color: #f472b6;
+}
+
+.sidebar-icon.icon-wood {
+  color: #34d399;
+}
+
+.sidebar-icon.icon-sales {
+  color: #22c55e;
+}
+
+.sidebar-icon.icon-record {
+  color: #fb7185;
+}
+
+.sidebar-icon.icon-home {
+  color: #38bdf8;
+}
+
+.icon-action-btn {
+  display: inline-flex;
+  width: 34px;
+  height: 34px;
+  align-items: center;
+  justify-content: center;
+  border: 0;
+  border-radius: 8px;
+  background: transparent;
+  color: #4b5563;
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.icon-action-btn:hover {
+  background: #eef2f7;
+  color: #111827;
+}
+
+.icon-action-btn.edit:hover {
+  color: #8a5a00;
+  background: #fff4d6;
+}
+
+.icon-action-btn.edit {
+  color: #b7791f;
+}
+
+.icon-action-btn.delete:hover {
+  color: #b42318;
+  background: #fee4e2;
+}
+
+.icon-action-btn.delete {
+  color: #dc2626;
+}
+
+.icon-action-btn.view:hover {
+  color: #175cd3;
+  background: #dbeafe;
+}
+
+.icon-action-btn.view {
+  color: #2563eb;
+}
+
+.actions-cell {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* Global body styles for the login page, applied dynamically */
+body.login-page {
+  margin: 0;
+  padding: 0;
+  background: url('/images/wood-bg.jpg') no-repeat center center fixed;
+  background-size: cover;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.card {
+  border: none;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  border-radius: 8px;
+  margin-bottom: 1rem;
+}
+
+.card-header {
+  background-color: #fff;
+  border-bottom: 1px solid #eee;
+  font-weight: 600;
+}
+
+.table {
+  background-color: #fff;
+}
+
+.table thead th {
+  background-color: #f8f9fa;
+  border-bottom: 2px solid #dee2e6;
+  font-weight: 600;
+}
+
+.btn-primary {
+  background-color: #4a90a4;
+  border-color: #4a90a4;
+}
+
+.btn-primary:hover {
+  background-color: #3d7a8c;
+  border-color: #3d7a8c;
+}
+
+.navbar {
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.navbar-brand {
+  font-weight: 600;
+  color: #fff !important;
+}
+
+.nav-link {
+  color: rgba(255,255,255,0.8) !important;
+}
+
+.nav-link:hover {
+  color: #fff !important;
+}
+
+.dropdown-menu {
+  border: none;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+}
+
+.modal-content {
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.modal-header {
+  background-color: #f8f9fa;
+}
+
+.alert {
+  border-radius: 8px;
+}
