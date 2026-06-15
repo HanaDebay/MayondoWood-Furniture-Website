@@ -1,6 +1,6 @@
 //Ensure user is authenticated 
 exports.ensureAuthenticated = (req ,res,next) => {
-    if(req.session.user){
+    if (req.session?.user || req.user) {
         return next()
     }
     res.status(401).json({ error: "Authentication required" });
@@ -10,8 +10,8 @@ exports.ensureAuthenticated = (req ,res,next) => {
 exports.ensureSalesAgent = (req ,res,next) => {
     // Allow both hyphenated and non-hyphenated role strings
     console.log("ensureSalesAgent middleware triggered.");
-    const user = req.session.user;
-    const role = req.session.role || user?.role;
+    const user = req.session?.user || req.user;
+    const role = req.session?.role || user?.role;
     if(user && (role === "Sales-Agent" || role === "SalesAgent")){
         return next()
     }
@@ -20,8 +20,9 @@ exports.ensureSalesAgent = (req ,res,next) => {
 
 //Ensure user is a Manager
 exports.ensureManager = (req, res, next) => {
-  const role = req.session.role || req.session.user?.role;
-  if(req.session.user && role === "Manager"){
+    const user = req.session?.user || req.user;
+    const role = req.session?.role || user?.role;
+    if (user && role === "Manager"){
       return next();
   }
   return res.status(403).json({ error: "Manager access required" });

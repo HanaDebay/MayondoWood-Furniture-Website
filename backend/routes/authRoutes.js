@@ -79,8 +79,9 @@ router.get("/login", (req, res) => {
 });
 
 router.get("/me", (req, res) => {
-  if (req.session.user) {
-    res.json({ user: req.session.user });
+  const user = req.session?.user || req.user;
+  if (user) {
+    res.json({ user });
   } else {
     res.status(401).json({ error: "Not authenticated" });
   }
@@ -118,12 +119,19 @@ router.post("/login", (req, res, next) => {
         return res.status(500).json({ error: "User data not found after login" });
       }
 
-      // Store full user object and role in session
-      req.session.user = fullUser; 
+      // Store full user object and role in session, then wait for persistence
+      req.session.user = fullUser;
       req.session.role = fullUser.role;
-      
-      // Return success with user role
-      return res.status(200).json({ message: "Login successful", user: fullUser });
+
+      req.session.save((saveErr) => {
+        if (saveErr) {
+          console.error("Session save error:", saveErr);
+          return res.status(500).json({ error: "Could not persist login session" });
+        }
+
+        // Return success with user role after the session is saved
+        return res.status(200).json({ message: "Login successful", user: fullUser });
+      });
     });
   })(req, res, next);
 });
